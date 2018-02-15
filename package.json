@@ -1,6 +1,6 @@
 {
   "name": "smooth-fetch",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Feature added fetch API, such as formatting query, formatting body.",
   "main": "index.js",
   "module": "es/index.js",
