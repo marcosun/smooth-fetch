@@ -1,7 +1,7 @@
 {
-  "name": "js-component-seed",
+  "name": "smooth-fetch",
   "version": "0.0.1",
-  "description": "A seed for writing javascript component",
+  "description": "Feature added fetch API, such as formatting query, formatting body.",
   "main": "index.js",
   "module": "es/index.js",
   "scripts": {
@@ -14,6 +14,11 @@
   "repository": "git@github.com:marcosun/js-component-seed.git",
   "author": "marcosun <marcoinbristol@gmail.com>",
   "license": "MIT",
+  "dependencies": {
+    "detect-node": "^2.0.3",
+    "node-fetch": "^2.0.0",
+    "qs": "^6.5.1"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
@@ -34,7 +39,7 @@
     "webpack-merge": "^4.1.1"
   },
   "files": [
-    "index.js",
+    "/*.js",
     "umd",
     "es"
   ]
