@@ -10,7 +10,7 @@ module.exports = {
   output: {
     filename: 'smooth-fetch.js',
     path: paths.appDist,
-    library: 'fetch',
+    library: 'smoothFetch',
     libraryTarget: 'umd',
   },
 

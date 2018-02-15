@@ -21,7 +21,7 @@ exec('babel lib -d es --ignore test.js', {
   NODE_ENV: 'production',
 });
 
-console.log('\nBuilding js-component-seed.js ...')
+console.log('\nBuilding smooth-fetch.js ...');
 
 exec('webpack --config ./config/webpack.prod.js', {
   BABEL_ENV: 'umd',
