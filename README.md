@@ -63,6 +63,7 @@ fetch is a factory to return a configured fetch API.
 
 - `baseUrl`: (`Optional` `Default => ''`) One can also call fetch(options) to omit baseUrl. It is used to set base url. Think of `<base />` tag in html.
 - `options`: (`Optional` `Default => {}`) It is the place to set options that apply to all requests. Please refer to [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch) for more details.
+- `options.queryFormatter`: (`Optional` `Default => qs.stringify(query: object) => queryString: string`). Function to format query object to string.
 - `resolver`: (`Optional` `Default => resolver`) This is the place to write how you would like to read from streaming response. It is also the perfect place to act as an interceptor for each and every request.
 
 ### `configuredFetch(resource, options)`
