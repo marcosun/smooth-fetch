@@ -3,7 +3,6 @@
   "version": "0.0.6",
   "description": "Feature added fetch API, such as formatting query, formatting body.",
   "main": "index.js",
-  "module": "es/index.js",
   "scripts": {
     "build": "node ./config/build.js",
     "analyse": "webpack --config ./config/webpack.analyse.js",
@@ -11,7 +10,7 @@
     "test:watch": "npm test -- --watch",
     "doc": "jsdoc src -r"
   },
-  "repository": "git@github.com:marcosun/js-component-seed.git",
+  "repository": "git@github.com:marcosun/smooth-fetch.git",
   "author": "marcosun <marcoinbristol@gmail.com>",
   "license": "MIT",
   "dependencies": {
@@ -37,10 +36,5 @@
     "webpack": "^3.10.0",
     "webpack-bundle-analyzer": "^2.10.0",
     "webpack-merge": "^4.1.1"
-  },
-  "files": [
-    "/*.js",
-    "umd",
-    "es"
-  ]
+  }
 }
