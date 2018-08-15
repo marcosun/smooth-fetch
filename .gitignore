@@ -58,6 +58,7 @@ typings/
 .env
 
 # Release path
-umd
-es
-/*.js
+build
+
+# jsdoc output
+out
