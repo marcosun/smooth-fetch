@@ -21,6 +21,7 @@
   "author": "marcosun <marcoinbristol@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "common-tags": "^1.8.0",
     "detect-node": "^2.0.3",
     "node-fetch": "^2.0.0",
     "qs": "^6.5.1"
