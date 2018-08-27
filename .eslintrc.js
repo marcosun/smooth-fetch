@@ -53,5 +53,7 @@ module.exports = {
         'newlines-between': 'never',
       },
     ],
+
+    'no-void': 'off',
   },
 };
