@@ -17,42 +17,46 @@ npm install --save smooth-fetch
 ## Usage
 
 ```javascript
-// fetchPrivate.js
-import fetch from 'smooth-fetch';
+// request.js
+import { fetch } from 'smooth-fetch';
 
-const fetchProtected = fetch(
-  'http://localhost:3000/protected', // Requests go to this address
-  { // Enable CORS
-    mode: 'cors',
-    credentials: 'include',
-  },
-);
+const request = fetch({
+  baseUrl: 'http://localhost:3000/protected',
+  credentials: 'include',
+  mode: 'cors', // Enable CORS
+})();
 
-export default fetchProtected;
+export default request;
 ```
 
 ```javascript
-// login.js
-import {
-  default as fetchProtected,
-  interceptor,
-} from './fetchPrivate.js';
-import {interceptor} from 'smooth-fetch';
+// api.js
+import request from './request.js';
 
 async function login() {
   try {
-    await fetchProtected(
-      'login', // Request goes to http://localhost:3000/protected/login
-      {
-        method: 'POST',
-        body: { // Json format post body
-          username: 'kevin',
-        },
+    await request('login', { // Request goes to http://localhost:3000/protected/login
+      method: 'POST',
+      body: { // Json format post body
+        username: 'kevin',
+        password: 'pin',
       },
-    );
+    };
     console.log('ok');
   } catch(e) { // Throws error when http status code is not 2XX
     console.log('login failed');
+  }
+};
+
+async function fetchBook() {
+  try {
+    const book = await request('books', {
+      query: { // Request goes to http://localhost:3000/protected/books?id=bookId
+        id: 'bookId',
+      },
+    };
+  } catch(e) { // Throws error when http status code is not 2XX
+    console.log('fetch book failed');
   }
 };
 ```
