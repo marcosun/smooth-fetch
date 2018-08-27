@@ -1,7 +1,9 @@
 # smooth-fetch
-Cross platform feature added fetch API, such as formatting query, formatting body.
+Fetch API is a very low level JavaScript API. It's behaviour significantly differs to XMLHttpRequest in terms of success and error handling, stream response data type, query string formatting, request body parsing, and more.
 
-It uses `window.fetch`, while in node, it replies on `node-fetch` to call fetch API.
+The intention of this project is to simplify and enhance fetch api with familiar usage as those XMLHttpRequest libraries, to name a few: axios, request, ajax.
+
+It can be used in es6 feature supported browser as well as NodeJs thanks to [node-fetch](https://www.npmjs.com/package/node-fetch).
 
 ## Installation
 
