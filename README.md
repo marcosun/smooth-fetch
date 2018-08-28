@@ -1,9 +1,9 @@
 # smooth-fetch
-Fetch API is a very low level JavaScript API. It's behaviour significantly differs to XMLHttpRequest in terms of success and error handling, stream response data type, query string formatting, request body parsing, and more.
+Fetch API is a very low level JavaScript API. It's behaviour significantly differs from XMLHttpRequest in terms of success and error handling, stream response data type, query string formatting, request body parsing, and more.
 
 The intention of this project is to simplify and enhance fetch api with familiar usage as those XMLHttpRequest libraries, to name a few: axios, request, ajax.
 
-It can be used in es6 feature supported browser as well as NodeJs thanks to [node-fetch](https://www.npmjs.com/package/node-fetch).
+It can be used in es6 feature supported browsers as well as Node.js thanks to [node-fetch](https://www.npmjs.com/package/node-fetch).
 
 ## Installation
 
@@ -11,6 +11,7 @@ smooth-fetch is available as an [npm package](https://www.npmjs.com/package/smoo
 
 ```sh
 yarn add smooth-fetch
+// or
 npm install --save smooth-fetch
 ```
 
@@ -63,28 +64,38 @@ async function fetchBook() {
 
 ## Docs
 
-### `fetch(baseUrl, options, resolver)`
+### `fetch(baseOptions)`
 
-fetch is a factory to return a configured fetch API.
+Config fetch api by defining global options. Calling this function returns injectInterceptors function.
 
-- `baseUrl`: (`Optional` `Default => ''`) One can also call fetch(options) to omit baseUrl. It is used to set base url. Think of `<base />` tag in html.
-- `options`: (`Optional` `Default => {}`) It is the place to set options that apply to all requests. Please refer to [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch) for more details.
-- `options.queryFormatter`: (`Optional` `Default => qs.stringify(query: object) => queryString: string`). Function to format query object to string.
-- `resolver`: (`Optional` `Default => resolver`) This is the place to write how you would like to read from streaming response. It is also the perfect place to act as an interceptor for each and every request.
+- `baseOptions`: (`Optional` `Default => {}`) To be be inherited and consumed by each and every single api call. Please refer to [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch) for more details.
+- `baseOptions.baseUrl`: (`Optional` `Default => ''`) This property usually takes the following pattern: protocol://hostname:port or /api.
+- `baseOptions.query`: (`Optional` `Default => void`) Query object.
+- `baseOptions.queryFormatter`: (`Optional` `Default => qs.stringify(query)`) A function understands how to stringify query.
 
-### `configuredFetch(resource, options)`
+### `injectInterceptors(requestInterceptor, responseInterceptor)`
 
-configuredFetch is a function to be called to execute a request. Returns a `Promise`, exactly the same as calling bare fetch.
+Further config fetch api by defining interceptors right before and after calling es6 fetch api. Calling this function returns request function.
 
-- `resource`: (`Required`) Resource address.
-- `options`: (`Optional` `Default => {}`) Fetch API options. This overwrites options that have been set in `fetch` function.
+- `requestInterceptor`: (`Optional` `Default => builtInRequestInterceptor`) It takes parameters that smooth-fetch has been configured, and returns request url and request options who will be passed to es6 fetch api directly. Signature: (path, baseOptions, apiOptions) => {url, options}.
+- `responseInterceptor`: (`Optional` `Default => builtInResponseInterceptor`) A function understands how to handle stream response data. Signature: (response) => any. Where response is a stream response.
 
-### `resolver(response)`
+### `request(path, apiOptions)`
 
-resolver reads response as a `json` object and `returns` it if `HTTP Status Code` is `2XX`, `throws` it as an error if `HTTP Status Code` is `not 2XX`.
+Config fetch api by defining local options applies to this request only. Calling this function triggers requestInterceptor first, then the actual network request, and finally responseInterceptor.
 
-Added features on top of fetch API are explained in the following:
+- `path`: (`Optional` `Default => ''`) Will be concatenated with baseUrl to become the resource address. Do not include either protocol, hostname or port number as they should appear in baseUrl.
+- `apiOptions`: (`Optional` `Default => {}`) A second chance to define fetch options. They are valid for this request only.
 
-- `query`: (`Optional`) Accepts `key value pairs` or a `string`. It uses `qs` library to format from an object.
-- `body`: (`Optional`) Accepts `key value pairs` or a `sting`. It uses  `JSON.stringify` to format from an object. For other types of format, please pass string.
-- `head.Content-Type`: (`Optional` `Default => application/json`) Accepts `string`. It sends request with `Content-Type=application/json` as default for request method other than `GET` or `HEAD`
+### `builtInRequestInterceptor(path, baseOptions, apiOptions)`
+
+Some highlighted features:
+1. Shallow merge baseOptions and apiOptions.
+2. Understand how to generate resource address with baseUrl, path and query string.
+3. Automatically define Content-Type header by inspecting the type of request body.
+
+### `builtInResponseInterceptor(response)`
+
+Some highlighted features:
+1. Resolve and reject a request based on http status code.
+2. Parse stream response body with a proper method by inspecting Content-Type header.
