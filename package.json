@@ -11,7 +11,6 @@
     "build:es2015modules": "cross-env NODE_ENV=production BABEL_ENV=modules babel ./lib/index.js -o ./build/index.es.js",
     "build:es": "cross-env NODE_ENV=production BABEL_ENV=es babel ./lib/ -d ./build/es/ --ignore *.test.js",
     "build": "yarn build:es2015 && yarn build:es2015modules && yarn build:es && yarn build:copy-files",
-    "doc": "jsdoc lib -r",
     "test": "jest",
     "test:watch": "npm test -- --watch",
     "preversion": "yarn test",
@@ -41,7 +40,6 @@
     "eslint-plugin-import": "^2.14.0",
     "fs-extra": "^7.0.0",
     "jest": "^22.1.4",
-    "jsdoc": "^3.5.5",
     "rimraf": "^2.6.2"
   }
 }
