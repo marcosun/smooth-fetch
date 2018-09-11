@@ -215,3 +215,10 @@ Overwrite built-in response interceptor. The returned value will be passed to th
 ### `interceptors.response.append((response, previousInterceptorResult) => {})`
 
 Inject response interceptors after built-in interceptor. The last function to be injected will be executed lastly. The returned value will be passed to the next interceptor.
+
+## TODO
+
+- Support async request and response interceptors.
+- Simplify interceptors with express middleware in mind.
+
+**Comments are welcomed from the community.**
