@@ -1,7 +1,7 @@
 {
   "name": "smooth-fetch",
-  "version": "1.0.0",
-  "description": "Feature added fetch API, such as formatting query, formatting body.",
+  "version": "2.0.0-beta.1",
+  "description": "ES6 fetch client for browser and node",
   "main": "index.js",
   "scripts": {
     "prebuild": "rimraf build",
