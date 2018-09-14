@@ -125,7 +125,7 @@ Each instance has a request method. This request is not exactly the same as ES6 
 
 ### Step 3 - Pre-Request
 
-Each request interceptor has access to path, defaultOptions, apiOptions, and returned value from the previous interceptor.
+Each request interceptor has access to path, defaultOptions, apiOptions, and returned value from the previous interceptor. The next interceptor will wait until the previous interceptor resolves.
 
 ### Step 3.1 - Before Main
 
@@ -145,7 +145,7 @@ To overwrite built-in request interceptor, one may use `instance.interceptors.re
 
 ### Step 3.3 - After Main
 
-For each call to `instance.interceptors.request.append()`, smooth-fetch places the interceptor function at the very last place of the row. 
+For each call to `instance.interceptors.request.append()`, smooth-fetch places the interceptor function at the very last place of the row. The next interceptor will wait until the previous interceptor resolves.
 
 ### Step 4 - ES6 Fetch API
 
@@ -218,7 +218,6 @@ Inject response interceptors after built-in interceptor. The last function to be
 
 ## TODO
 
-- Support async request and response interceptors.
 - Simplify interceptors with express middleware in mind.
 
 **Comments are welcomed from the community.**
