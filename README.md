@@ -1,7 +1,7 @@
 # smooth-fetch
 Fetch API is a very low level JavaScript API. It's behaviour significantly differs from XMLHttpRequest in terms of success and error handling, stream response data type, query string formatting, request body parsing, and more.
 
-The intention of this project is to simplify and enhance fetch api with familiar usage as those XMLHttpRequest libraries, to name a few: [axios](https://www.npmjs.com/package/axios), [request](https://www.npmjs.com/package/request), ajax.
+The intention of this project is to simplify and enhance fetch API with familiar usage as those XMLHttpRequest libraries provide, to name a few: [axios](https://www.npmjs.com/package/axios), [request](https://www.npmjs.com/package/request), ajax.
 
 It can be used in ES6 feature supported browsers as well as Node.js thanks to [node-fetch](https://www.npmjs.com/package/node-fetch).
 
@@ -46,13 +46,13 @@ async function login() {
         username: 'kevin',
         password: 'pin',
       },
-      mode: 'same-origin', // Overwrites defaultOptions.
-    };
+      mode: 'same-origin', // Overrides defaultOptions.
+    });
     console.log('ok');
-  } catch(e) { // Throw error when http status code is not 2XX.
+  } catch (e) { // Throw error when http status code is not 2XX.
     console.log('login failed');
   }
-};
+}
 
 async function fetchBook() {
   try {
@@ -60,11 +60,11 @@ async function fetchBook() {
       query: { // Request goes to http://localhost:3000/protected/books?id=bookId
         id: 'bookId',
       },
-    };
-  } catch(e) { // Throw error when http status code is not 2XX.
+    });
+  } catch (e) { // Throw error when http status code is not 2XX.
     console.log('fetch book failed');
   }
-};
+}
 ```
 
 ### Advanced
@@ -100,7 +100,7 @@ const requestInterceptor = (path, defaultOptions, apiOptions, previousIntercepto
 };
 
 const responseInterceptor = (response, previousInterceptorResult) => {
-  if (response.status === 401) { // Redirect to login page if any api returns status code 401.
+  if (response.status === 401) { // Redirect to login page if any API returns status code 401.
     window.location.href = '/login';
   }
 };
@@ -121,7 +121,7 @@ Create an instance by calling `new Fetch(defaultOptions)`. defaultOptions can be
 
 ### Step 2 - Run
 
-Each instance has a request method. This request is not exactly the same as ES6 fetch api, instead it is a wrapper function around ES6 fetch api. Calling this function kicks off a sequence of request lifecycles. A request goes through all request interceptors, then ES6 fetch api, and finally all response interceptors. smooth-fetch splits both request and response interceptors into three stages: before main, main (built-in), and after main. Interceptors are executed by order.
+Each instance has a request method. This request is not exactly the same as ES6 fetch API, instead it is a wrapper function around ES6 fetch API. Calling this function kicks off a sequence of request lifecycles. A request goes through all request interceptors, then ES6 fetch API, and finally all response interceptors. smooth-fetch splits both request and response interceptors into three stages: before main, main (built-in), and after main. Interceptors are executed by order.
 
 ### Step 3 - Pre-Request
 
@@ -141,7 +141,7 @@ Built-in request interceptor shallow merges defaultOptions, apiOptions, and retu
 
 It returns an object with two properties: url and options.
 
-To overwrite built-in request interceptor, one may use `instance.interceptors.request.main()`.
+To override built-in request interceptor, one may use `instance.interceptors.request.main()`.
 
 ### Step 3.3 - After Main
 
@@ -149,7 +149,7 @@ For each call to `instance.interceptors.request.append()`, smooth-fetch places t
 
 ### Step 4 - ES6 Fetch API
 
-Read url and options from the final request interceptor, and call ES6 fetch api with these two variables. A response arrives response interceptors as soon as it is returned.
+Read url and options from the final request interceptor, and call ES6 fetch API with these two variables. A response arrives response interceptors as soon as it is returned.
 
 ### Step 5 - After-Request
 
@@ -163,7 +163,7 @@ For each call to `instance.interceptors.response.prepend()`, smooth-fetch places
 
 Built-in response interceptor chooses the correct method to parse stream response body according to the Content-Type header. It also resolves or rejects a request by status code.
 
-To overwrite built-in response interceptor, one may use `instance.interceptors.response.main()`.
+To override built-in response interceptor, one may use `instance.interceptors.response.main()`.
 
 ### Step 5.3 - After Main
 
@@ -187,10 +187,10 @@ Initialise request instance.
 
 ### `request(path, apiOptions)`
 
-A wrapper function over ES6 fetch api. Calling this function triggers request interceptors first, then the actual network request, and finally response interceptors.
+A wrapper function over ES6 fetch API. Calling this function triggers request interceptors first, then the actual network request, and finally response interceptors.
 
 - `path`: (`Optional` `Default => ''`) In built-in request interceptor, this will be concatenated with baseUrl to become the resource address. Do not include either protocol, hostname or port number as they should appear in baseUrl.
-- `apiOptions`: (`Optional` `Default => {}`) A second chance to define fetch options. In built-in request interceptor, this will be shallowly merged against defaultOptions, where properties in apiOptions overwrite properties of the same name in defaultOptions, to output url, Content-Type header and stringify request body.
+- `apiOptions`: (`Optional` `Default => {}`) A second chance to define fetch options. In built-in request interceptor, this will be shallowly merged against defaultOptions, where properties in apiOptions override properties of the same name in defaultOptions, to output url, Content-Type header and stringify request body.
 
 ### `interceptors.request.prepend((path, defaultOptions, apiOptions, previousInterceptorResult) => {})`
 
@@ -198,7 +198,7 @@ Inject request interceptors before built-in interceptor. This function can be ca
 
 ### `interceptors.request.main((path, defaultOptions, apiOptions, previousInterceptorResult) => ({url, options}))`
 
-Overwrite built-in request interceptor. If it is the last interceptor before the actual network request, make sure it returns an object with property name url and options. The returned value will be passed to the next interceptor.
+Override built-in request interceptor. If it is the last interceptor before the actual network request, make sure it returns an object with property name url and options. The returned value will be passed to the next interceptor.
 
 ### `interceptors.request.append((path, defaultOptions, apiOptions, previousInterceptorResult) => ({url, options}))`
 
@@ -210,7 +210,7 @@ Inject response interceptors before built-in interceptor. The last function to b
 
 ### `interceptors.response.main((response, previousInterceptorResult) => {})`
 
-Overwrite built-in response interceptor. The returned value will be passed to the next interceptor.
+Override built-in response interceptor. The returned value will be passed to the next interceptor.
 
 ### `interceptors.response.append((response, previousInterceptorResult) => {})`
 
