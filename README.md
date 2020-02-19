@@ -103,6 +103,8 @@ const responseInterceptor = (response, previousInterceptorResult) => {
   if (response.status === 401) { // Redirect to login page if any API returns status code 401.
     window.location.href = '/login';
   }
+
+  return previousInterceptorResult
 };
 
 instance.interceptors.request.append(requestInterceptor);
