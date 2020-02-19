@@ -11,7 +11,7 @@
     "build:es2015modules": "cross-env NODE_ENV=production BABEL_ENV=modules babel ./lib/index.js -o ./build/index.es.js",
     "build:es": "cross-env NODE_ENV=production BABEL_ENV=es babel ./lib/ -d ./build/es/ --ignore *.test.js",
     "build": "yarn build:es2015 && yarn build:es2015modules && yarn build:es && yarn build:copy-files",
-    "test": "jest",
+    "test": "jest --env=node",
     "test:watch": "npm test -- --watch",
     "preversion": "yarn test",
     "version": "yarn build && npm publish build"
